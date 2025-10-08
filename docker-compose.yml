@@ -1,0 +1,33 @@
+services:
+
+  redis:
+    image: redis:7.4.4-alpine3.21
+
+  backend: 
+    build: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/backend
+    # command: sh -c "chmod -R 0777 /backend/var/logs & rm /backend/var/logs/default.pid & rm /backend/var/logs/second.pid &  celery multi start default second --app=backend --logfile=var/logs/%n%I.log --loglevel=info --autoscale:default=2,2 --autoscale:second=2,2  & python manage.py runserver 0.0.0.0:8000" 
+    command: sh -c "chmod -R 0777 /backend/var/logs & rm /backend/var/logs/default.pid & rm /backend/var/logs/second.pid &  celery multi start default second --app=backend --logfile=var/logs/%n%I.log --loglevel=info --autoscale:default=2,2 --autoscale:second=2,2  & uvicorn backend.asgi:application --host 0.0.0.0 --port 8000 --workers 4 --reload" 
+    
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - xpack.security.enrollment.enabled=false
+      - ES_JAVA_OPTS=-Xms256m
+    ports:
+      - 9200:9200
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+
+
+    
+volumes:
+  esdata:
+  vectorstore:
