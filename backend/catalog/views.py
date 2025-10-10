@@ -1,5 +1,5 @@
-import django_filters.rest_framework
-from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ReadOnlyModelViewSet
@@ -18,7 +18,9 @@ class TestView(APIView):
 class ProductViewset(ReadOnlyModelViewSet):
     queryset = Style.objects.all()
     lookup_field = "style_no"
-    filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ["style_no"]
+    search_fields = ["style_no", "name", "brand__name"]
 
     def get_serializer_class(self):
         if self.action == "retrieve":
