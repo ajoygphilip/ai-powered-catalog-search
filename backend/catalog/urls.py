@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import ProductViewset, TestView
+from .views import CatalogProductSearchViewset, ProductViewset, TestView
 
 router = DefaultRouter()
-router.register(r"products", ProductViewset, basename="product")
+router.register(r"", ProductViewset, basename="product")
+router.register(r"products", CatalogProductSearchViewset, basename="search")
 urlpatterns = [
-    path("", TestView.as_view()),
+    path("test", TestView.as_view()),
 ]
 urlpatterns += router.urls

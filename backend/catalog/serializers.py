@@ -1,5 +1,7 @@
+from django_elasticsearch_dsl_drf_alt.serializers import DocumentSerializer
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 
+from .documents import CatalogProductDocument
 from .models import Brand, CatalogProductVariant, Style
 
 
@@ -26,3 +28,9 @@ class ProductSerializer(ModelSerializer):
 
 class ProductDetailSerializer(ProductSerializer):
     variants = VarientSerializer(many=True)
+
+
+class CatalogProductDocumentSerializer(DocumentSerializer):
+    class Meta:
+        document = CatalogProductDocument
+        fields = ("style_no", "name")
