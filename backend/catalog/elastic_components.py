@@ -24,3 +24,5 @@ sku_edge_ngram_completion_analyzer = analyzer(
     filter=["lowercase", "stop", edge_ngram_completion_filter],
     char_filter=special_characters_filter,
 )
+
+english_analyzer = analyzer("english")
