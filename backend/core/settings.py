@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # 3rd party
     "rest_framework",
     "django_filters",
+    "django_elasticsearch_dsl",
+    "django_elasticsearch_dsl_drf",
     # project
     "catalog",
     "shared",
@@ -143,4 +145,9 @@ ELASTICSEARCH_DSL = {
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
+}
+
+# Elasticsearch configuration
+ELASTICSEARCH_DSL = {
+    "default": {"hosts": "http://elasticsearch:9200"},
 }
