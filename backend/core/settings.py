@@ -47,7 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "django_filters",
     "django_elasticsearch_dsl",
-    "django_elasticsearch_dsl_drf",
+    "django_elasticsearch_dsl_drf_alt",
     # project
     "catalog",
     "shared",
