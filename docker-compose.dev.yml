@@ -26,6 +26,7 @@ services:
     platform: linux/arm64
     volumes:
       - esdata:/usr/share/elasticsearch/data
+      - ./elasticsearch/analysis:/usr/share/elasticsearch/config/analysis:ro
 
 
 
