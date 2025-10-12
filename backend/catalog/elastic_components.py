@@ -25,4 +25,21 @@ sku_edge_ngram_completion_analyzer = analyzer(
     char_filter=special_characters_filter,
 )
 
-english_analyzer = analyzer("english")
+
+synonym_filter = token_filter(
+    "synonym_filter",
+    type="synonym",
+    synonyms_path="analysis/synonyms.txt",
+)
+
+
+synonym_analyzer = analyzer(
+    "english_analyzer",
+    tokenizer="standard",
+    filter=[
+        "lowercase",
+        synonym_filter,
+        "snowball",
+        "stop",
+    ],
+)

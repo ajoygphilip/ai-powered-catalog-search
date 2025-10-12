@@ -3,8 +3,8 @@ from django_elasticsearch_dsl.registries import registry
 
 from .elastic_components import (
     description_analyzer,
-    english_analyzer,
     sku_edge_ngram_completion_analyzer,
+    synonym_analyzer,
 )
 from .models import CategoryProductCategory, ProductStatus, Style
 
@@ -25,7 +25,7 @@ class CatalogProductDocument(Document):
             "logo": fields.TextField(index=False),
         }
     )
-    name = fields.TextField(analyzer=english_analyzer)
+    name = fields.TextField(analyzer=synonym_analyzer)
     image = fields.TextField(index=False)
     description = fields.TextField(analyzer=description_analyzer)
     categories = fields.ObjectField(
