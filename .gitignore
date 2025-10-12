@@ -16,3 +16,5 @@ var/
 staticfiles/
 bruno/
 .sqlite3
+
+.DS_Store
